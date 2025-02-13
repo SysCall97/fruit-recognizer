@@ -1,0 +1,136 @@
+---
+title: Cap Recognizer
+layout: page
+---
+
+<style>
+  body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+
+  .cap-recognizer-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 9px #0069d9;
+    margin-top: 20px;
+  }
+
+  .button:hover {
+    background-color: #0056b3;
+  }
+
+  .button:active {
+    background-color: #0056b3;
+    box-shadow: 0 5px #0056b3;
+    transform: translateY(4px);
+  }
+
+  #uploadedPhoto img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #predictionResult {
+    margin-top: 20px;
+  }
+
+  #disclaimer {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+</style>
+
+<div class="cap-recognizer-container">
+  <p>Click on 'Upload File' to upload your photo or Capture a photo with your device directly, and then click 'Predict'.</p>
+
+  <input id="photo" type="file" style="display: none;">
+  <label for="photo" class="button" style="cursor: pointer;">Upload File</label>
+  <button id="predictButton" class="button">Predict</button>
+
+  <div id="uploadedPhoto"></div>
+  <div id="predictionResult">
+
+  <p id="disclaimer">Note: The model comes with with 78% accuracy and it can make mistakes.</p>
+</div>
+
+<p style="font-size: 14px; margin-top: 30px; text-align: left; color: #888;">Kazi Mashry</p>
+
+<script type="module">
+    import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client@1.11.0/dist/index.min.js";
+
+    function displayUploadedPhoto(reader) {
+      const uploadedPhotoContainer = document.getElementById("uploadedPhoto");
+      const predictionResultContainer = document.getElementById("predictionResult");
+
+      predictionResultContainer.innerHTML = '';
+      uploadedPhotoContainer.innerHTML = `<img src="${reader.result}" alt="Photo Uploaded Successfully. Click Predict to find the name of the cap">`;
+    }
+
+    async function predict() {
+      const photo = document.getElementById("photo");
+      const predictionResultContainer = document.getElementById("predictionResult");
+
+      if (photo.files.length === 0) {
+        alert("Please choose a file before predicting.");
+        return;
+      }
+
+      const file = photo.files[0];
+      const reader = new FileReader();
+
+      reader.addEventListener("load", async () => {
+        displayUploadedPhoto(reader);
+        predictionResultContainer.innerHTML = '<p>Predicting... This may take a few seconds.</p>';
+
+        const blob = new Blob([file], { type: file.type });
+        const app = await Client.connect("SysCall97/Fruit_Recognizer");
+        
+        const response = await app.predict("/predict", { img: blob });
+        
+        const label = response.data[0].label;
+        predictionResultContainer.innerHTML = `<p>Model predicts: "${label}"</p>`;
+      });
+
+      reader.readAsDataURL(file);
+    }
+
+    document.getElementById("photo").addEventListener("change", () => {
+      const photo = document.getElementById("photo");
+      if (photo.files.length > 0) {
+        const reader = new FileReader();
+        reader.readAsDataURL(photo.files[0]);
+        reader.onload = () => displayUploadedPhoto(reader);
+      }
+    });
+
+    document.getElementById("predictButton").addEventListener("click", predict);
+</script>
+
+</div>
