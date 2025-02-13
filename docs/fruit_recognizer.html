@@ -112,7 +112,7 @@ layout: page
         const blob = new Blob([file], { type: file.type });
         const app = await Client.connect("SysCall97/Fruit_Recognizer");
         
-        const response = await app.predict("/predict", { img: blob });
+        const response = await app.predict("/predict", { image: blob });
         
         const label = response.data[0].label;
         predictionResultContainer.innerHTML = `<p>Model predicts: "${label}"</p>`;
