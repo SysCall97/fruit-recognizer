@@ -2,6 +2,6 @@ remote_theme: daviddarnes/alembic@main
 plugins:
 - jekyll-remote-theme
 
-title: Cap Recognizer
-description: A simple web app to recognize the caps.
+title: Fruit Recognizer
+description: A simple web app to recognize the fruits.
 author: Kazi Mashry
