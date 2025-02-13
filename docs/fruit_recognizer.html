@@ -1,5 +1,5 @@
 ---
-title: Cap Recognizer
+title: fruit Recognizer
 layout: page
 ---
 
@@ -11,7 +11,7 @@ layout: page
     background-color: #f5f5f5;
   }
 
-  .cap-recognizer-container {
+  .fruit-recognizer-container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
@@ -67,8 +67,8 @@ layout: page
   }
 </style>
 
-<div class="cap-recognizer-container">
-  <p>Click on 'Upload File' to upload your photo or Capture a photo with your device directly, and then click 'Predict'.</p>
+<div class="fruit-recognizer-container">
+  <p>Click on 'Upload File' to upload your photo or fruitture a photo with your device directly, and then click 'Predict'.</p>
 
   <input id="photo" type="file" style="display: none;">
   <label for="photo" class="button" style="cursor: pointer;">Upload File</label>
@@ -90,7 +90,7 @@ layout: page
       const predictionResultContainer = document.getElementById("predictionResult");
 
       predictionResultContainer.innerHTML = '';
-      uploadedPhotoContainer.innerHTML = `<img src="${reader.result}" alt="Photo Uploaded Successfully. Click Predict to find the name of the cap">`;
+      uploadedPhotoContainer.innerHTML = `<img src="${reader.result}" alt="Photo Uploaded Successfully. Click Predict to find the name of the fruit">`;
     }
 
     async function predict() {
