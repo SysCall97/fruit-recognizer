@@ -4,7 +4,7 @@ layout: page
 ---
 
 # Fruit Recognizer
-can recognize upto 11 categories of fruits. They are following: </br>
+can recognize upto 11 categories of fruits. They are following:
 1. Mango
 2. Jackfruit
 3. Litchi
