@@ -19,7 +19,7 @@ This is an image classifier project where I've focused on data collection, data 
 <b>DataLoader: </b> Used fastai DataBlock API to set up the DataLoader.
 
 ## Model Training and Data Cleaning:
- <b>Model Training: </b>Fine-tuned a resnet18 model for 12 epochs and got upto ~78% accuracy. </br>
+ <b>Model Training: </b>Fine-tuned a resnet50 model for 12 epochs and got upto ~83% accuracy. </br>
  <b>Data cleaning: </b> Manual data cleaning, since there are so many incorrect images that overlapped with different classes.
 
  ## Model Deployment:
